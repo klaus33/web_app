@@ -11,7 +11,7 @@ set :deploy_via, :remote_cache
 set :copy_compression, :bz2
 set :rails_env, 'production'
 set :deploy_to, "/home/summonerAdmin/leagueofsummoners.com"
-set :rvm_bin_path, "/usr/local/rvm/bin"
+set :rvm_bin_path, "$HOME/bin"
 
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
