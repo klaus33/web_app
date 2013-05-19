@@ -1,0 +1,309 @@
+commit f23159a3f33068644f020c2dd6fd0613f3bd7dc9
+Author: klaus <baiko33@hotmail.com>
+Date:   Tue May 14 15:55:04 2013 -0430
+
+    complete bootstrap
+
+diff --git a/Gemfile b/Gemfile
+index ccb0144..f3f1fa8 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -1,6 +1,7 @@
+ source 'https://rubygems.org'
+ 
+ gem 'rails', '3.2.13'
++gem 'bootstrap-sass', '2.1'
+ 
+ # Bundle edge Rails instead:
+ # gem 'rails', :git => 'git://github.com/rails/rails.git'
+diff --git a/Gemfile.lock b/Gemfile.lock
+index fb078aa..13397cb 100644
+--- a/Gemfile.lock
++++ b/Gemfile.lock
+@@ -30,6 +30,7 @@ GEM
+       multi_json (~> 1.0)
+     arel (3.0.2)
+     bcrypt-ruby (3.0.1)
++    bootstrap-sass (2.1.0.0)
+     builder (3.0.4)
+     capybara (1.1.2)
+       mime-types (>= 1.16)
+@@ -151,6 +152,7 @@ PLATFORMS
+   ruby
+ 
+ DEPENDENCIES
++  bootstrap-sass (= 2.1)
+   capybara (= 1.1.2)
+   coffee-rails (~> 3.2.1)
+   devise
+diff --git a/app/assets/stylesheets/custom.css.scss b/app/assets/stylesheets/custom.css.scss
+new file mode 100644
+index 0000000..fa374df
+--- /dev/null
++++ b/app/assets/stylesheets/custom.css.scss
+@@ -0,0 +1,102 @@
++@import "bootstrap";
++
++/* mixins, variables, etc. */
++
++$grayMediumLight: #eaeaea;
++
++/* universal */
++
++html {
++  overflow-y: scroll;
++}
++
++body {
++  padding-top: 60px;
++}
++
++section {
++  overflow: auto;
++}
++
++textarea {
++  resize: vertical;
++}
++
++.center {
++  text-align: center;
++  h1 {
++    margin-bottom: 10px;
++  }
++}
++
++/* typography */
++
++h1, h2, h3, h4, h5, h6 {
++  line-height: 1;
++}
++
++h1 {
++  font-size: 3em;
++  letter-spacing: -2px;
++  margin-bottom: 30px;
++  text-align: center;
++}
++
++h2 {
++  font-size: 1.7em;
++  letter-spacing: -1px;
++  margin-bottom: 30px;
++  text-align: center;
++  font-weight: normal;
++  color: $grayLight;
++}
++
++p {
++  font-size: 1.1em;
++  line-height: 1.7em;
++}
++
++
++/* header */
++
++#logo {
++  float: left;
++  margin-right: 10px;
++  font-size: 1.7em;
++  color: white;
++  text-transform: uppercase;
++  letter-spacing: -1px;
++  padding-top: 9px;
++  font-weight: bold;
++  line-height: 1;
++  &:hover {
++    color: white;
++    text-decoration: none;
++  }
++}
++
++/* footer */
++
++footer {
++  margin-top: 45px;
++  padding-top: 5px;
++  border-top: 1px solid $grayMediumLight;
++  color: $grayLight;
++  a {
++    color: $gray;
++    &:hover { 
++      color: $grayDarker;
++    }
++  }  
++  small { 
++    float: left; 
++  }
++  ul {
++    float: right;
++    list-style: none;
++    li {
++      float: left;
++      margin-left: 10px;
++    }
++  }
++}
+diff --git a/app/controllers/static_pages_controller.rb b/app/controllers/static_pages_controller.rb
+index 39967b6..14a32c1 100644
+--- a/app/controllers/static_pages_controller.rb
++++ b/app/controllers/static_pages_controller.rb
+@@ -7,4 +7,7 @@ class StaticPagesController < ApplicationController
+   
+   def about
+   end
++  
++  def contact
++  end
+ end
+diff --git a/app/helpers/application_helper.rb b/app/helpers/application_helper.rb
+index de6be79..3a3291b 100644
+--- a/app/helpers/application_helper.rb
++++ b/app/helpers/application_helper.rb
+@@ -1,2 +1,13 @@
+ module ApplicationHelper
++
++# Returns the full title on a per-page basis.
++  def full_title(page_title)
++    base_title = "Ruby on Rails Tutorial Sample App"
++    if page_title.empty?
++      base_title
++    else
++      "#{base_title} | #{page_title}"
++    end
++  end
++  
+ end
+diff --git a/app/views/layouts/_footer.html.erb b/app/views/layouts/_footer.html.erb
+new file mode 100644
+index 0000000..079c29c
+--- /dev/null
++++ b/app/views/layouts/_footer.html.erb
+@@ -0,0 +1,13 @@
++<footer class="footer">
++  <small>
++    <a href="http://railstutorial.org/">Rails Tutorial</a>
++    by Michael Hartl
++  </small>
++  <nav>
++    <ul>
++      <li><%= link_to "About",   about_path %></li>
++      <li><%= link_to "Contact", contact_path %></li>
++      <li><a href="http://news.railstutorial.org/">News</a></li>
++    </ul>
++  </nav>
++</footer>
+diff --git a/app/views/layouts/_header.html.erb b/app/views/layouts/_header.html.erb
+new file mode 100644
+index 0000000..71537cf
+--- /dev/null
++++ b/app/views/layouts/_header.html.erb
+@@ -0,0 +1,14 @@
++<header class="navbar navbar-fixed-top navbar-inverse">
++  <div class="navbar-inner">
++    <div class="container">
++      <%= link_to "sample app", '#', id: "logo" %>
++      <nav>
++        <ul class="nav pull-right">
++          <li><%= link_to "Home",    root_path %></li>
++          <li><%= link_to "Help",    help_path %></li>
++          <li><%= link_to "Sign in", '#' %></li>
++        </ul>
++      </nav>
++    </div>
++  </div>
++</header>
+diff --git a/app/views/layouts/_shim.html.erb b/app/views/layouts/_shim.html.erb
+new file mode 100644
+index 0000000..ecedf56
+--- /dev/null
++++ b/app/views/layouts/_shim.html.erb
+@@ -0,0 +1,3 @@
++<!--[if lt IE 9]>
++<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
++<![endif]-->
+diff --git a/app/views/layouts/application.html.erb b/app/views/layouts/application.html.erb
+index 540ad57..63ba31e 100644
+--- a/app/views/layouts/application.html.erb
++++ b/app/views/layouts/application.html.erb
+@@ -1,15 +1,17 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+-    <title>Ruby on Rails Tutorial Sample App | <%= yield(:title) %></title>
+-    <%= stylesheet_link_tag    "application", :media => "all" %>
++    <title><%= full_title(yield(:title)) %></title>
++    <%= stylesheet_link_tag    "application", media: "all" %>
+     <%= javascript_include_tag "application" %>
+     <%= csrf_meta_tags %>
+-       <p class="notice"><%= notice %></p>
+-       <p class="alert"><%= alert %></p>
+-
++    <%= render 'layouts/shim' %>    
+   </head>
+   <body>
+-    <%= yield %>
++    <%= render 'layouts/header' %>
++    <div class="container">
++      <%= yield %>
++      <%= render 'layouts/footer' %>
++    </div>
+   </body>
+ </html>
+diff --git a/app/views/static_pages/contact.html.erb b/app/views/static_pages/contact.html.erb
+new file mode 100644
+index 0000000..85dee38
+--- /dev/null
++++ b/app/views/static_pages/contact.html.erb
+@@ -0,0 +1,7 @@
++<% provide(:title, 'Contact') %>
++<h1>Contact</h1>
++<p>
++  Contact Ruby on Rails Tutorial about the sample app at the
++  <a href="http://railstutorial.org/contact">contact page</a>.
++</p>
++
+diff --git a/app/views/static_pages/home.html.erb b/app/views/static_pages/home.html.erb
+index c1a21b2..a686337 100644
+--- a/app/views/static_pages/home.html.erb
++++ b/app/views/static_pages/home.html.erb
+@@ -1,7 +1,13 @@
+-<% provide(:title, 'Home') %>
+-<h1>Sample App</h1>
+-<p>
+-  This is the home page for the
+-  <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
+-  sample application.
+-</p>
++<div class="center hero-unit">
++  <h1>Welcome to the Sample App</h1>
++
++  <h2>
++    This is the home page for the
++    <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
++    sample application.
++  </h2>
++
++  <%= link_to "Sign up now!", '#', class: "btn btn-large btn-primary" %>
++</div>
++
++<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+diff --git a/config/routes.rb b/config/routes.rb
+index eb04c74..6896829 100644
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@ -2,11 +2,9 @@ WebProject::Application.routes.draw do
+   
+   root :to => "static_pages#home"
+ 
+-  get "static_pages/home"
+-
+-  get "static_pages/help"
+-  
+-  get "static_pages/about"
++  match '/help',    to: 'static_pages#help'
++  match '/about',   to: 'static_pages#about'
++  match '/contact', to: 'static_pages#contact' 
+ 
+   # The priority is based upon order of creation:
+   # first created -> highest priority.
