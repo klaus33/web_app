@@ -12,14 +12,13 @@ set :copy_compression, :bz2
 set :rails_env, 'production'
 set :deploy_to, "/home/summonerAdmin/leagueofsummoners.com"
 set :rvm_type, :system
-set :rvm_bin_path, "$HOME/bin"
 set :rvm_path, '/usr/local/rvm'
 
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "#{application}"                          # Your HTTP server, Apache/etc
-role :app, "#{application}"                          # This may be the same as your `Web` server
-role :db,  "#{application}", :primary => true # This is where Rails migrations will run
+role :web, "leagueofsummoners.com"                          # Your HTTP server, Apache/etc
+role :app, "leagueofsummoners.com"                          # This may be the same as your `Web` server
+role :db,  "leagueofsummoners.com", :primary => true # This is where Rails migrations will run
 # role :db,  "your slave db-server here"
 
 
