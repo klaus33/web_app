@@ -1,13 +1,20 @@
 WebProject::Application.routes.draw do
   
+ # get "user/show"
+
   devise_for :users
+ # resources :users, :only => [:show]
+  resources :questions, only: [:create, :destroy]
 
   root :to => "static_pages#home"
 
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact' 
-
+  match '/profile', to: 'users#show'
+  match 'users/:id' => 'users#show'
+  match 'users/:id/edit' => 'users#edit' , :as => :user
+  
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"
   end 

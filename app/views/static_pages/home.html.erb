@@ -1,19 +1,32 @@
 <div class="center hero-unit">
-  <h1>Welcome to League of Summoners</h1>
+  <h1>Bienvenido a Cool Message Board</h1>
 
   <h2>
-    This is a website dedicated to find other summoners like you to play <a href="www.leagueoflegends.com/‎">League of Legends</a> .
+    Aqui podras encontrar la respuesta a todas tus preguntas.
 
   </h2>
+
 
     
 </div>
 
+<% if signed_in? %>
+
+    <h3>Lista de Preguntas</h3>
+    <%= render 'shared/feed' %>
+
+<% else %>
+
 <div class="center">
- <iframe width="560" height="315" src="http://www.youtube.com/embed/mSbMQ5xDnEg" frameborder="0" allowfullscreen></iframe>
+ <iframe width="560" height="315" src="http://www.youtube.com/embed/NWHfY_lvKIQ" frameborder="0" allowfullscreen></iframe>
    <br>
     <br>
     <%= link_to "Sign up now!", sign_up_path, class: "btn btn-large btn-primary" %>
 </div>
     
 <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+
+
+<% end %> 
+
+

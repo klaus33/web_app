@@ -1,0 +1,25 @@
+<% provide(:title, @user.email) %>
+<div class="row">
+
+  <div class="row">
+    <aside class="span4">
+        <%= render 'shared/user_info' %>
+        <br>
+        <br>
+       <section>
+        <%= render 'shared/question_form' %>
+      </section>
+    </aside>
+  </div>  
+  
+  <div class="span8">
+    <% if @user.question.any? %>
+      <h3>Preguntas (<%= @user.question.count %>)</h3>
+      <ol class="questions">
+        <%= render @question %>
+      </ol>
+      <%= will_paginate @question %>
+   <% end %>
+  </div>
+</div>
+
