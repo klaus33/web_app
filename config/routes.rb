@@ -12,6 +12,7 @@ WebProject::Application.routes.draw do
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact' 
   match '/profile', to: 'users#show'
+  match '/users', to: 'users#index'
   match 'users/:id' => 'users#show'
   match 'users/:id/edit' => 'users#edit' , :as => :user
   

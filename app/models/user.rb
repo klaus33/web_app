@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   has_many :question, dependent: :destroy
   
   def feed
-    # This is preliminary. See "Following users" for the full implementation.
     Question
   end
   
