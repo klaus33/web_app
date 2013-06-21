@@ -14,5 +14,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    Question.find(params[:id]).destroy
+    flash[:success] = "Question destroyed."
+    redirect_to root_url
   end
 end

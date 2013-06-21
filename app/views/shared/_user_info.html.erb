@@ -5,6 +5,8 @@
   <%= current_user.email %>
 </h1>
 <span>
-  <%= link_to "Editar mi perfil", current_user %>
+<%= link_to "Editar mi perfil", edit_user_path(current_user.id)  %>
+  
+
 </span>
 

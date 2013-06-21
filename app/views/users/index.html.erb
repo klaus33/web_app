@@ -1,7 +1,6 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
 
-
 <%= will_paginate %>
 
 <ul class="users">
@@ -9,10 +8,7 @@
     <li>
       <%= gravatar_for user, size: 52 %>
       <%= user.email %>
-      <% if current_user.admin? && !current_user?(user) %>
-    | <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-  <% end %>
+      <%= link_to "delete user", user, :method => :destroy, :confirm => "You sure?" %>
     </li>
   <% end %>
 </ul>

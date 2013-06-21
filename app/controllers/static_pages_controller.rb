@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
-   @question = Question if user_signed_in?
-   @feed_items = current_user.feed.paginate(page: params[:page]) if user_signed_in?
+   @question = Question 
+   @feed_items = User.first.feed.paginate(page: params[:page]) 
   end
 
   def help

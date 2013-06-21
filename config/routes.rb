@@ -2,7 +2,7 @@ WebProject::Application.routes.draw do
   
  # get "user/show"
 
-  devise_for :users
+  devise_for :users 
  # resources :users, :only => [:show]
   resources :questions, only: [:create, :destroy]
 
@@ -13,8 +13,9 @@ WebProject::Application.routes.draw do
   match '/contact', to: 'static_pages#contact' 
   match '/profile', to: 'users#show'
   match '/users', to: 'users#index'
-  match 'users/:id' => 'users#show'
-  match 'users/:id/edit' => 'users#edit' , :as => :user
+  match '/users/:id', :to => 'users#destroy', :as => :user
+  match '/users/:id/edit', :to => 'users#edit' , :as => :edit_user
+  match '/questions/:id', :to => 'questions#destroy', :as => :user
   
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"
