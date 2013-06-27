@@ -3,6 +3,11 @@ class QuestionsController < ApplicationController
   def index
   end
   
+  def reply
+    @question = Question.find(params[:id])
+    @quest = current_user.answer.build if user_signed_in?
+  end
+  
   def create
   @question = current_user.question.build(params[:question])
     if @question.save

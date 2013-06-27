@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :admin
   # attr_accessible :title, :body
   has_many :question, dependent: :destroy
+  has_many :answer, dependent: :destroy
   
   def feed
     Question

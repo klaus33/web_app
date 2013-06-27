@@ -1,10 +1,15 @@
 WebProject::Application.routes.draw do
   
+  get "answers/create"
+
+  get "answers/destroy"
+
  # get "user/show"
 
   devise_for :users 
  # resources :users, :only => [:show]
   resources :questions, only: [:create, :destroy]
+  resources :answers, only: [:create, :destroy]
 
   root :to => "static_pages#home"
 
@@ -15,7 +20,8 @@ WebProject::Application.routes.draw do
   match '/users', to: 'users#index'
   match '/users/:id', :to => 'users#destroy', :as => :user
   match '/users/:id/edit', :to => 'users#edit' , :as => :edit_user
-  match '/questions/:id', :to => 'questions#destroy', :as => :user
+  match '/questions/:id', :to => 'questions#reply'
+  match '/questions/:id', :to => 'questions#destroy', :as => :question_destroy
   
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"

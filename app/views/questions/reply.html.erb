@@ -1,0 +1,15 @@
+<br><br>
+<li>
+
+  <span class="content"><%= @question.content %></span>
+
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(@question.created_at) %> ago.
+  </span>
+  <br><br>
+    <section>
+        <%= render 'shared/answer_form' %>
+  </section>
+</li>
+
+

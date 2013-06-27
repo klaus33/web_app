@@ -11,7 +11,10 @@
       <% if current_user.admin? %>
            <%= link_to "delete question", feed_item, method: :delete,
                                   data: { confirm: "You sure?" } %>
+      <% else %>
+           <%= link_to "Reply", feed_item, method: :reply %>
       <% end %>
+      
   <% end %>
  
 </li>
