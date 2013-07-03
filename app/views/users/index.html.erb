@@ -1,15 +1,21 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
 
-<%= will_paginate %>
 
+<%= will_paginate %>
 <ul class="users">
   <% @users.each do |user| %>
+	<%if user.id != current_user.id %>
     <li>
       <%= gravatar_for user, size: 52 %>
       <%= user.email %>
       <%= link_to "delete user", user, :method => :destroy, :confirm => "You sure?" %>
+<br>
+<br>
+<br>
+<br>
     </li>
+	<% end %>
   <% end %>
 </ul>
 
