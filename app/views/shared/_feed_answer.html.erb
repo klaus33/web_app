@@ -1,0 +1,14 @@
+<li id="<%= feed_answer.id %>">
+  <%= link_to gravatar_for(feed_answer.user), feed_answer.user %>
+  <span class="user">
+    <%= link_to feed_answer.user.email, feed_answer.user %>
+  </span>
+  <span class="content"><%= feed_answer.content %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(feed_answer.created_at) %> ago.
+  </span>
+  <% if user_signed_in? %>
+       <%= link_to "Accept Answer", feed_answer, method: :reply %>
+  <% end %>
+ 
+</li>
