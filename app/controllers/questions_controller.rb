@@ -4,7 +4,10 @@ class QuestionsController < ApplicationController
   end
   
   def reply
+    @feed_items = User.first.feea.paginate(page: params[:page]) 
     @question = Question.find(params[:id])
+    @user = current_user
+    @answer = @user.answer.paginate(page: params[:page])
     @quest = current_user.answer.build if user_signed_in?
   end
   

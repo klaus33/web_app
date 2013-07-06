@@ -1,8 +1,6 @@
 WebProject::Application.routes.draw do
   
-  get "answers/create"
 
-  get "answers/destroy"
 
  # get "user/show"
 

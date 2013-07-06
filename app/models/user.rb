@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
     Question
   end
   
+  def feea
+    Answer
+  end
+  
 end
