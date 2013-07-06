@@ -10,7 +10,8 @@ before_filter :admin_user, only: :destroy
   end
   
   def index
-    @users = User.paginate(page: params[:page])
+		@users = User.paginate(page: params[:page])
+
   end
   
   def edit
