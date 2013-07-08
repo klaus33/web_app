@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130623200612) do
+ActiveRecord::Schema.define(:version => 20130708004341) do
 
   create_table "answers", :force => true do |t|
     t.string   "content"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(:version => 20130623200612) do
   add_index "answers", ["question_id", "created_at"], :name => "index_answers_on_question_id_and_created_at"
   add_index "answers", ["user_id", "created_at"], :name => "index_answers_on_user_id_and_created_at"
 
+  create_table "comments", :force => true do |t|
+    t.string   "content"
+    t.integer  "answer_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pregunta", :force => true do |t|
     t.string   "content"
     t.integer  "user_id"
@@ -34,8 +41,6 @@ ActiveRecord::Schema.define(:version => 20130623200612) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  add_index "pregunta", ["user_id", "created_at"], :name => "index_pregunta_on_user_id_and_created_at"
 
   create_table "questions", :force => true do |t|
     t.string   "content"
@@ -59,11 +64,27 @@ ActiveRecord::Schema.define(:version => 20130623200612) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.boolean  "isAdmin",                :default => false
+    t.boolean  "isAdmin"
     t.boolean  "admin",                  :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], :name => "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type"], :name => "index_votes_on_votable_id_and_votable_type"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], :name => "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
 
 end

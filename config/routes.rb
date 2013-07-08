@@ -2,12 +2,22 @@ WebProject::Application.routes.draw do
   
 
 
+  get "comment/create"
+
  # get "user/show"
 
   devise_for :users 
  # resources :users, :only => [:show]
-  resources :questions, only: [:create, :destroy]
+  resources :questions, only: [:create, :destroy] do
+   member do
+     post 'upvote'
+     post 'downvote'
+     post 'accept'
+   end
+  end
   resources :answers, only: [:create, :destroy]
+  
+  resources :comments, only: [:create, :destroy]
 
   root :to => "static_pages#home"
 
@@ -20,6 +30,9 @@ WebProject::Application.routes.draw do
   match '/users/:id/edit', :to => 'users#edit' , :as => :edit_user
   match '/questions/:id', :to => 'questions#reply'
   match '/questions/:id', :to => 'questions#destroy', :as => :question_destroy
+  match '/questions/:id/upvote', :to => 'questions#upvote', :as => :question_upvote
+  match '/questions/:id/downvote', :to => 'questions#downvote', :as => :question_downvote
+  match '/questions/:id/accept', :to => 'questions#accept', :as => :question_accept
   
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"

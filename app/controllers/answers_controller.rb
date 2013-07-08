@@ -5,10 +5,10 @@ class AnswersController < ApplicationController
    @feed_items = User.first.feea.paginate(page: params[:page]) 
     @answer = current_user.answer.build(params[:answer])
     if @answer.save
-      flash[:success] = "Respuesta Enviada!"
-      redirect_to root_url
+    flash[:success] = "Respuesta Enviada!"
+      redirect_to :back
     else
-    flash[:success] = "Respuesta NO Enviada!"
+    flash[:success] = "Respuesta No Enviada!"
       render 'static_pages/home'
     end
   end

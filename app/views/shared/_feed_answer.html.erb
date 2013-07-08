@@ -1,4 +1,8 @@
+<% if feed_answer.question_id == @question.id %>
+
 <li id="<%= feed_answer.id %>">
+
+
   <%= link_to gravatar_for(feed_answer.user), feed_answer.user %>
   <span class="user">
     <%= link_to feed_answer.user.email, feed_answer.user %>
@@ -8,7 +12,57 @@
     Posted <%= time_ago_in_words(feed_answer.created_at) %> ago.
   </span>
   <% if user_signed_in? %>
-       <%= link_to "Accept Answer", feed_answer, method: :reply %>
-  <% end %>
+  <% if !@question.answered? %>
+      <% if @question.user_id == current_user.id %>
+         <%= link_to 'Accept Answer', accept_question_path(feed_answer.id, @question.id )%>
+      <% end %> 
+    <% end %>      
+       <% if !current_user.voted_down_on? feed_answer %>
+        <% if !current_user.voted_up_on? feed_answer %>
+         <%= link_to 'Upvote', upvote_question_path(feed_answer.id) %>
+         <% end %> 
+        <% end %> 
+  <% end %>     
+  <%= feed_answer.upvotes.size %><img alt="Upvotes" src="/assets/upvote.png" height="42" width="42" />
+  
+  <% if user_signed_in? %>     
+    <% if !current_user.voted_down_on? feed_answer %>
+        <% if !current_user.voted_up_on? feed_answer %>
+         <%= link_to 'Downvote', downvote_question_path(feed_answer.id) %>
+        <% end %> 
+      <% end %> 
+  <% end %> 
+  
+  <%= feed_answer.downvotes.size %><img alt="Downvotes" src="/assets/downvote.png" height="42" width="42" />
+  
+  <% if feed_answer.correct? %>
+     <img alt="Accept" src="/assets/check.png" height="42" width="42" />
+      Respuesta Aceptada 
+      
+  <% end %> 
+  
+  <h6>Comentarios</h6>
  
+  <% @comment_list.each do |o| %>
+    <% if o.answer_id == feed_answer.id %>
+      <span class="content"><%= o.content  %></span>
+      <br>
+    <% end %>
+  <% end %>
+  
+    <% if user_signed_in? %>  
+    
+      <%= form_for(@cont) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="field">
+        <%= f.text_area :content, placeholder: "Comentario nuevo..." , :size => "30x2"%>
+        <%= f.hidden_field :answer_id, :value => feed_answer.id %>
+      </div>
+      
+      <%= f.submit "Comentar", class: "btn btn-large btn-primary" %>
+    <% end %>
+ 
+ <% end %>
 </li>
+
+ <% end %> 

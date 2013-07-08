@@ -31,6 +31,7 @@ gem 'rvm-capistrano'
 
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
+gem 'acts_as_votable', '~> 0.5.0'
 
 #gem 'mysql2', '< 0.3'
 

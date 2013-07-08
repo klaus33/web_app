@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   has_many :question, dependent: :destroy
   has_many :answer, dependent: :destroy
+  acts_as_voter
   
   def feed
     Question
@@ -17,6 +18,10 @@ class User < ActiveRecord::Base
   
   def feea
     Answer
+  end
+  
+  def feec
+    Comment
   end
   
 end

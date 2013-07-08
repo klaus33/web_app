@@ -9,6 +9,8 @@ class QuestionsController < ApplicationController
     @user = current_user
     @answer = @user.answer.paginate(page: params[:page])
     @quest = current_user.answer.build if user_signed_in?
+    @comment_list= Comment.all
+    @cont = Comment.new if user_signed_in?
   end
   
   def create
@@ -26,4 +28,33 @@ class QuestionsController < ApplicationController
     flash[:success] = "Question destroyed."
     redirect_to root_url
   end
+  
+  def accept
+  
+  flash[:success] = "Ha aceptado una respuesta!"
+    @answer = Answer.find(params[:id])
+    @answer.correct = true
+    @answer.save
+    @question = Question.find(params[:format])
+    @question.answered = true
+    @question.save
+    redirect_to :back
+  end
+  
+  def upvote
+  flash[:success] = "Ha votado por una respuesta!"
+    @answer = Answer.find(params[:id])
+    @answer.liked_by current_user
+    @answer.save
+    redirect_to :back
+  end
+  
+  def downvote
+  flash[:success] = "Ha votado por una respuesta!"
+    @answer = Answer.find(params[:id])
+    @answer.downvote_from current_user
+    @answer.save
+    redirect_to :back
+  end
+  
 end

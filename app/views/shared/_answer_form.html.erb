@@ -2,6 +2,9 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_area :content, placeholder: "Escriba una respuesta..." %>
+    <%= f.hidden_field :question_id, :value => @question.id %>
   </div>
+
+
   <%= f.submit "Responder", class: "btn btn-large btn-primary" %>
 <% end %>
