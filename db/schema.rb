@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(:version => 20130708004341) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "pregunta", ["user_id", "created_at"], :name => "index_pregunta_on_user_id_and_created_at"
+
   create_table "questions", :force => true do |t|
     t.string   "content"
     t.integer  "user_id"
@@ -64,7 +66,7 @@ ActiveRecord::Schema.define(:version => 20130708004341) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.boolean  "isAdmin"
+    t.boolean  "isAdmin",                :default => false
     t.boolean  "admin",                  :default => false
   end
 
