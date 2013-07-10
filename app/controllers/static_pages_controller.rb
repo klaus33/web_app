@@ -1,7 +1,11 @@
 class StaticPagesController < ApplicationController
   def home
    @question = Question 
-   @feed_items = User.first.feed.paginate(page: params[:page]) 
+   if not User.first.nil?
+      @feed_items = User.first.feed.paginate(page: params[:page]) 
+   else
+      @feed_items = []
+   end
   end
 
   def help
