@@ -7,9 +7,11 @@
     Posted <%= time_ago_in_words(@question.created_at) %> ago.
   </span>
   <br><br>
+  <% if @question.user.id != current_user.id %>
     <section>
         <%= render 'shared/answer_form' %>
   </section>
+  <% end %>
   
   <h3>Lista de Respuestas</h3>
   <%= render 'shared/feea' %>
