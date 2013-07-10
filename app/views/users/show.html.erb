@@ -15,11 +15,12 @@
   <div class="span8">
     <% if @user.question.any? %>
       <h3>Preguntas (<%= @user.question.count %>)</h3>
+        <%= will_paginate @question %>
       <ol class="questions">
         <%= render @question %>
       </ol>
-      <%= will_paginate @question %>
    <% end %>
+    <%= will_paginate @question %>
   </div>
 </div>
 

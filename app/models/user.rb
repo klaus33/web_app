@@ -11,8 +11,6 @@ class User < ActiveRecord::Base
   has_many :question, dependent: :destroy
   has_many :answer, dependent: :destroy
   acts_as_voter
-
-  self.per_page = 10
   
   def feed
     Question

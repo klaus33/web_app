@@ -4,5 +4,4 @@ class Question < ActiveRecord::Base
     has_many :answer, dependent: :destroy
     validates :user_id, presence: true
     validates :content, presence: true, length: { maximum: 500 }
-    self.per_page = 10
 end
